@@ -1,3 +1,8 @@
+# Lost in Translation
+
+React application that converts input string to american signlanguage letter.
+Uses localstorage for user login and translation history.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -16,6 +21,7 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Test has been named according to recommended \*.test.js filename ending in the same folder as the file to be tested.
 
 ### `npm run build`
 
