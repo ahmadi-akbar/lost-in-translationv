@@ -28,6 +28,7 @@ const style = (char) => {
  * @returns {column, row} indexes of the char provided.
  * Space will recieve column: 2, row: 3
  * Other special characters: column 2, row: 3
+ * Made public so it can be tested with unit tester
  */
 export const calculateOffset = (char) => {
   const charLowerCase = char.toLowerCase();
@@ -57,7 +58,7 @@ const containerStyle = {
 
 /**
  *
- * @param {Char} props.char - required, must be a single character
+ * @param {Char} [char] props.char - required, must be a single character
  */
 function Handsign(props) {
   return (

@@ -1,0 +1,86 @@
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import Keyboard from '@material-ui/icons/Keyboard';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  margin: {
+    margin: theme.spacing(2),
+  },
+}));
+
+/**
+ * Reusable Styled input field
+ * @param {*} props - require iconName, textFieldLabel, onReadyToSubmit, buttonTitle
+ */
+function UserInput(props) {
+  const classes = useStyles();
+  const [text, setText] = useState('');
+  const ENTER_KEY = 13;
+
+  const readyToSubmit = () => {
+    props.onReadyToSubmit(text);
+  };
+
+  const onEnterPress = (e) => {
+    if (e.keyCode === ENTER_KEY) {
+      readyToSubmit();
+    }
+  };
+  const onTextFieldChange = (e) => {
+    setText(e.target.value);
+  };
+
+  const Icon = (iconName) => {
+    switch (iconName) {
+      case 'account':
+        return (
+          <div data-testid='account'>
+            <AccountCircle />
+          </div>
+        );
+      case 'keyboard':
+        return (
+          <div data-testid='keyboard'>
+            <Keyboard />
+          </div>
+        );
+      default:
+        break;
+    }
+  };
+  return (
+    <React.Fragment>
+      <div className={classes.margin}>
+        <Grid container spacing={2} alignItems='flex-end' justify='center'>
+          <Grid item>{Icon(props.iconName)}</Grid>
+          <Grid item>
+            <TextField
+              id='input-with-icon-grid'
+              label={props.textFieldLabel}
+              onKeyDown={onEnterPress}
+              onChange={onTextFieldChange}
+            />
+          </Grid>
+          <Grid item>
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={readyToSubmit}
+            >
+              {props.buttonTitle}
+            </Button>
+          </Grid>
+        </Grid>
+      </div>
+    </React.Fragment>
+  );
+}
+
+export default UserInput;

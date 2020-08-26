@@ -5,7 +5,8 @@ import { amber, purple } from '@material-ui/core/colors';
 import Login from './components/Login';
 import Box from '@material-ui/core/Box';
 import { setStorageItem, getStorageItem } from './utils/storage';
-import TranslationCard from './components/TranslationCard';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import Translate from './Views/Translate';
 
 const theme = createMuiTheme({
   palette: {
@@ -19,34 +20,50 @@ const theme = createMuiTheme({
 });
 
 function App() {
-  const [isLoggedin, setIsLoggedIn] = useState(false);
-  const [name, setName] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    getStorageItem('name') ? true : false
+  );
+  const [name, setName] = useState(getStorageItem('name'));
+
   useEffect(() => {
-    const storage = getStorageItem('name');
-    if (storage) {
+    const name = getStorageItem('name');
+    if (name) {
+      setName(name);
       setIsLoggedIn(true);
-      setName(storage);
     }
   }, []);
+
   return (
-    <ThemeProvider theme={theme}>
-      <div className='App'>
-        <Box>
-          <TitleBar title='Lost in translation' username={name} />
-          {!isLoggedin && (
-            <Login
-              readyToLogin={(message) => {
-                console.log(message);
-                setName(message);
-                setStorageItem('name', message);
-                setIsLoggedIn(true);
-              }}
-            ></Login>
-          )}
-          <TranslationCard text='abcd efasfkasdjøfadfgå/&)/(&' />
-        </Box>
-      </div>
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <div>
+          <Box>
+            <TitleBar title='Lost in translation' username={name} />
+            <Switch>
+              <Route path='/translate'>
+                <Translate isLoggedIn={isLoggedIn} />
+              </Route>
+              <Route path='/login'>
+                <Login
+                  readyToLogin={(message) => {
+                    setName(message);
+                    setStorageItem('name', message);
+                    setIsLoggedIn(true);
+                  }}
+                  isLoggedIn={isLoggedIn}
+                  name={name}
+                />
+              </Route>
+              <Route exact path='/'>
+                <div>
+                  <p>asdjklf</p>
+                </div>
+              </Route>
+            </Switch>
+          </Box>
+        </div>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 
