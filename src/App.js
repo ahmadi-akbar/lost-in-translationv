@@ -5,6 +5,7 @@ import { amber, purple } from '@material-ui/core/colors';
 import Login from './components/Login';
 import Box from '@material-ui/core/Box';
 import { setStorageItem, getStorageItem } from './utils/storage';
+import TranslationCard from './components/TranslationCard';
 
 const theme = createMuiTheme({
   palette: {
@@ -42,6 +43,7 @@ function App() {
               }}
             ></Login>
           )}
+          <TranslationCard text='abcd efasfkasdjøfadfgå/&)/(&' />
         </Box>
       </div>
     </ThemeProvider>
