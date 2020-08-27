@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TitleBar from './components/TitleBar';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { amber, purple } from '@material-ui/core/colors';
-import Login from './components/Login';
+import Login from './Views/Login';
 import Box from '@material-ui/core/Box';
 import { setStorageItem, getStorageItem } from './utils/storage';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -56,7 +56,7 @@ function App() {
                 />
               </Route>
               <Route path='/profile'>
-                <Profile></Profile>
+                <Profile isLoggedIn={isLoggedIn} />
               </Route>
               <Route exact path='/'>
                 <div>

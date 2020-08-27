@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import LockIcon from '@material-ui/icons/Lock';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
+import withAuth from '../hoc/withAuth';
 
 const useStyles = makeStyles({
   button: {
@@ -43,4 +44,4 @@ function Profile(props) {
   );
 }
 
-export default Profile;
+export default withAuth(Profile);

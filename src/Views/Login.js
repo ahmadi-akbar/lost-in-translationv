@@ -1,10 +1,9 @@
 import React from 'react';
-import UserInput from './UserInput';
+import UserInput from '../components/UserInput';
 import { setStorageItem } from '../utils/storage';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { makeStyles } from '@material-ui/core/styles';
-import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   Card: {
@@ -21,7 +20,6 @@ const Login = (props) => {
 
   return (
     <Card className={classes.Card}>
-      {props.isLoggedIn && <Redirect to='/translate' />}
       <CardContent>
         <UserInput
           iconName='account'

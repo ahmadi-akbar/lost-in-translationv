@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
 import UserInput from '../components/UserInput';
 import TranslationCard from '../components/TranslationCard';
 import { updateTranslationArrayInStorage } from '../utils/storage';
+import withAuth from '../hoc/withAuth';
 
 function Translate(props) {
   const [translatableText, setTranslatableText] = useState('');
@@ -13,7 +13,6 @@ function Translate(props) {
 
   return (
     <div className='container'>
-      {!props.isLoggedIn && <Redirect to='/login' />}
       <UserInput
         iconName='keyboard'
         textFieldLabel='Write the text you whish to translate'
@@ -28,4 +27,4 @@ function Translate(props) {
   );
 }
 
-export default Translate;
+export default withAuth(Translate);
