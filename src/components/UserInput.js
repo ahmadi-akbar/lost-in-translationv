@@ -56,16 +56,17 @@ function UserInput(props) {
     }
   };
   return (
-    <React.Fragment>
+    <div className={classes.root}>
       <div className={classes.margin}>
-        <Grid container spacing={2} alignItems='flex-end' justify='center'>
+        <Grid container spacing={4} alignItems='flex-end' justify='center'>
           <Grid item>{Icon(props.iconName)}</Grid>
-          <Grid item>
+          <Grid item xs={props.inputFieldSize}>
             <TextField
               id='input-with-icon-grid'
               label={props.textFieldLabel}
               onKeyDown={onEnterPress}
               onChange={onTextFieldChange}
+              fullWidth
             />
           </Grid>
           <Grid item>
@@ -79,7 +80,7 @@ function UserInput(props) {
           </Grid>
         </Grid>
       </div>
-    </React.Fragment>
+    </div>
   );
 }
 

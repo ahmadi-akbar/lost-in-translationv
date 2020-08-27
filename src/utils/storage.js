@@ -28,3 +28,19 @@ export const getStorageItem = (key) => {
 export const deleteStorageItem = (key) => {
   localStorage.removeItem(key);
 };
+
+export const updateTranslationArrayInStorage = (newTranslation) => {
+  const previousTranslations = getStorageItem('translation');
+  const translation = [];
+  if (!previousTranslations) {
+    translation.push(newTranslation);
+  } else if (previousTranslations.length === 10) {
+    translation.push(...previousTranslations);
+    translation.shift();
+    translation.push(newTranslation);
+  } else {
+    translation.push(...previousTranslations);
+    translation.push(newTranslation);
+  }
+  setStorageItem('translation', translation);
+};
