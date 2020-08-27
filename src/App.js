@@ -5,8 +5,9 @@ import { amber, purple } from '@material-ui/core/colors';
 import Login from './components/Login';
 import Box from '@material-ui/core/Box';
 import { setStorageItem, getStorageItem } from './utils/storage';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Translate from './Views/Translate';
+import Profile from './Views/Profile';
 
 const theme = createMuiTheme({
   palette: {
@@ -31,7 +32,7 @@ function App() {
       setName(name);
       setIsLoggedIn(true);
     }
-  }, []);
+  }, [isLoggedIn, name]);
 
   return (
     <BrowserRouter>
@@ -53,6 +54,9 @@ function App() {
                   isLoggedIn={isLoggedIn}
                   name={name}
                 />
+              </Route>
+              <Route path='/profile'>
+                <Profile></Profile>
               </Route>
               <Route exact path='/'>
                 <div>
