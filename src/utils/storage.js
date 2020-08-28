@@ -35,7 +35,7 @@ export const updateTranslationArrayInStorage = (newTranslation) => {
   if (!previousTranslations) {
     translation.push(newTranslation);
   } else if (previousTranslations.length === 10) {
-    translation.push(...previousTranslations);
+    translation.push(...previousTranslations.filter((text) => text.length > 0));
     translation.shift();
     translation.push(newTranslation);
   } else {

@@ -55,20 +55,26 @@ function TranslationCard(props) {
     setShowText(!showText);
   };
 
-  return (
-    <Card className={classes.Card}>
-      <CardContent>
-        {props.text
-          .toLowerCase()
-          .split('')
-          .map((c, i) => (
-            <Handsign char={c} key={i} />
-          ))}
-      </CardContent>
+  if (props.text.trim() === '') {
+    return <div></div>;
+  } else {
+    return (
+      <Card className={classes.Card}>
+        <CardContent>
+          {props.text
+            .toLowerCase()
+            .split('')
+            .map((c, i) => (
+              <Handsign char={c} key={i} />
+            ))}
+        </CardContent>
 
-      <CardActions className={classes.CardActions}>{Translation()}</CardActions>
-    </Card>
-  );
+        <CardActions className={classes.CardActions}>
+          {Translation()}
+        </CardActions>
+      </Card>
+    );
+  }
 }
 
 export default TranslationCard;

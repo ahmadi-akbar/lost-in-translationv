@@ -4,10 +4,12 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { amber, purple } from '@material-ui/core/colors';
 import Login from './Views/Login';
 import Box from '@material-ui/core/Box';
-import { setStorageItem, getStorageItem } from './utils/storage';
+import { getStorageItem } from './utils/storage';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Translate from './Views/Translate';
 import Profile from './Views/Profile';
+import { useSelector, useDispatch } from 'react-redux';
+import { setAuth } from './store/actions/auth';
 
 const theme = createMuiTheme({
   palette: {
@@ -26,6 +28,18 @@ function App() {
   );
   const [name, setName] = useState(getStorageItem('name'));
 
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      setAuth({
+        isLoggedIn: getStorageItem('name') ? true : false,
+        name: getStorageItem('name'),
+      })
+    );
+  }, [dispatch]);
+
   useEffect(() => {
     const name = getStorageItem('name');
     if (name) {
@@ -39,28 +53,20 @@ function App() {
       <ThemeProvider theme={theme}>
         <div>
           <Box>
-            <TitleBar title='Lost in translation' username={name} />
+            <TitleBar username={auth.name} />
             <Switch>
               <Route path='/translate'>
-                <Translate isLoggedIn={isLoggedIn} />
+                <Translate isLoggedIn={auth.isLoggedIn} />
               </Route>
               <Route path='/login'>
-                <Login
-                  readyToLogin={(message) => {
-                    setName(message);
-                    setStorageItem('name', message);
-                    setIsLoggedIn(true);
-                  }}
-                  isLoggedIn={isLoggedIn}
-                  name={name}
-                />
+                <Login />
               </Route>
               <Route path='/profile'>
-                <Profile isLoggedIn={isLoggedIn} />
+                <Profile isLoggedIn={auth.isLoggedIn} />
               </Route>
-              <Route exact path='/'>
+              <Route path='/'>
                 <div>
-                  <p>asdjklf</p>
+                  <p>404 NOT FOUND</p>
                 </div>
               </Route>
             </Switch>
