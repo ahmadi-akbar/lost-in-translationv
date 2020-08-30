@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import UserInput from '../components/UserInput';
 import TranslationCard from '../components/TranslationCard';
-import { updateTranslationArrayInStorage } from '../utils/storage';
 import withAuth from '../hoc/withAuth';
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch } from 'react-redux';
+import { addTranslation } from '../store/actions/translations';
 
 const useStyles = makeStyles({
   button: {
@@ -19,12 +20,15 @@ function Translate(props) {
   const [translatableText, setTranslatableText] = useState('');
   const [showInputField, setShowInputField] = useState(true);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (translatableText.trim().length > 0) {
-      updateTranslationArrayInStorage(translatableText);
+      //updateTranslationArrayInStorage(translatableText);
+      dispatch(addTranslation(translatableText.trim()));
       setShowInputField(false);
     }
-  }, [translatableText]);
+  }, [translatableText, dispatch]);
 
   const translateMore = () => {
     setTranslatableText('');

@@ -57,8 +57,8 @@ const containerStyle = {
 };
 
 /**
- *
- * @param {Char} [char] props.char - required, must be a single character
+ * Renders a single signlanguage char based on props.char.
+ * @param {Char} props.char - required, must be a single character
  */
 function Handsign(props) {
   return (

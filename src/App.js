@@ -10,6 +10,7 @@ import Translate from './Views/Translate';
 import Profile from './Views/Profile';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAuth } from './store/actions/auth';
+import Welcome from './Views/Welcome';
 
 const theme = createMuiTheme({
   palette: {
@@ -53,8 +54,11 @@ function App() {
       <ThemeProvider theme={theme}>
         <div>
           <Box>
-            <TitleBar username={auth.name} />
+            <TitleBar />
             <Switch>
+              <Route exact path='/'>
+                <Welcome />
+              </Route>
               <Route path='/translate'>
                 <Translate isLoggedIn={auth.isLoggedIn} />
               </Route>

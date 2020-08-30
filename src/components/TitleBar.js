@@ -12,6 +12,7 @@ import { setAuth } from '../store/actions/auth';
 import { deleteStorageItem } from '../utils/storage';
 import { Link } from 'react-router-dom';
 import { Container } from '@material-ui/core';
+import { clearTranslation } from '../store/actions/translations';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,20 +23,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TitleBar(props) {
+/**
+ * Displays Top title bar with links to translate, profile, login
+ *
+ */
+function TitleBar() {
+  //classes: used for styling
   const classes = useStyles();
+  //auth from redux.
   const auth = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
 
   const logout = () => {
     deleteStorageItem('name');
-    deleteStorageItem('translation');
     dispatch(
       setAuth({
         isLoggedIn: false,
         name: '',
       })
     );
+    dispatch(clearTranslation());
   };
 
   return (

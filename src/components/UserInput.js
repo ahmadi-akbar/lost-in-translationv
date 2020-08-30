@@ -17,7 +17,10 @@ const useStyles = makeStyles((theme) => ({
 
 /**
  * Reusable Styled input field
- * @param {*} props - require iconName, textFieldLabel, onReadyToSubmit, buttonTitle
+ * @param {String} props.iconName -  iconName, can be 'account' or 'keyboard'
+ * @param {String} props.texFieldLabel - helper label for user input
+ * @param {Function} props.onReadyToSubmit function, required for capturing user is ready to submit.
+ * @param {String} props.buttonTitle - Title on submit button
  */
 function UserInput(props) {
   const classes = useStyles();

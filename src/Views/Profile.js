@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { getStorageItem, deleteStorageItem } from '../utils/storage';
+import React from 'react';
+import { deleteStorageItem } from '../utils/storage';
 import TranslationCard from '../components/TranslationCard';
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
@@ -7,8 +7,9 @@ import LockIcon from '@material-ui/icons/Lock';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import withAuth from '../hoc/withAuth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setAuth } from '../store/actions/auth';
+import { clearTranslation } from '../store/actions/translations';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
@@ -21,10 +22,8 @@ const useStyles = makeStyles({
   },
 });
 
-function Profile(props) {
-  const [text] = useState(
-    getStorageItem('translation') ? getStorageItem('translation') : []
-  );
+function Profile() {
+  const translations = useSelector((state) => state.translations);
 
   const dispatch = useDispatch();
 
@@ -32,13 +31,13 @@ function Profile(props) {
 
   const logout = () => {
     deleteStorageItem('name');
-    deleteStorageItem('translation');
     dispatch(
       setAuth({
         isLoggedIn: false,
         name: '',
       })
     );
+    dispatch(clearTranslation());
   };
 
   return (
@@ -47,7 +46,7 @@ function Profile(props) {
         <Typography variant='h4' display='block' gutterBottom>
           Profile
         </Typography>
-        {text.map((item, i) => (
+        {translations.translations.map((item, i) => (
           <TranslationCard key={i} text={item} />
         ))}
         <Button

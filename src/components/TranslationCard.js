@@ -15,7 +15,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
   },
 }));
-
+/**
+ * Shows text translated to handsign.
+ * @param {props} props.text required, text that will be translated to signlanguage
+ */
 function TranslationCard(props) {
   const [showText, setShowText] = useState(false);
   const classes = useStyles();
