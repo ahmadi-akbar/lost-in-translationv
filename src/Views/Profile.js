@@ -22,11 +22,15 @@ const useStyles = makeStyles({
   },
 });
 
+/**
+ * Renders profile page. Shows the users translations.
+ */
 function Profile() {
   const translations = useSelector((state) => state.translations);
 
   const dispatch = useDispatch();
 
+  //generate custom material-ui styles
   const classes = useStyles();
 
   const logout = () => {
