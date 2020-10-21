@@ -5,6 +5,7 @@ image: node:12
 run_tests:
   stage: test
   script:
+    - dir
     - cd client
     - npm install
     - npm test
